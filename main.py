@@ -6,7 +6,7 @@ def conectar_banco():
         conexao = mysql.connector.connect(
             host='localhost',
             user='root',
-            password=''# coloque a senha do seu banco de dados aqui
+            password=''# coloque a senha 
         )
         return conexao
     except Error as e:
@@ -45,19 +45,19 @@ def configurar_banco():
 def cadastra_posto(nome, endereco,status):
     try:
         conexao = conectar_banco()
-        if conexao and conexao.is_connected():# se conectar faço isso ai
+        if conexao and conexao.is_connected():
             cursor = conexao.cursor()
 
-            conexao.database = 'ecotrack' # conectando com o banco de dados
+            conexao.database = 'ecotrack' 
 
             comando_sql = '''
             INSERT INTO postos_de_agua (nome, endereco, status_funcionamento)
             VALUES (%s, %s, %s)
             '''
-            # jogando valores em uma lista
+            
             valores = [nome, endereco, status]
             cursor.execute(comando_sql, valores)
-            conexao.commit()# dou o commit pra salvar
+            conexao.commit()
             print("Posto salvo com sucesso.")
     except Exception as erro:
         print(f"Deu erro: {erro}")
@@ -72,8 +72,7 @@ def ler_lista() -> str:
         if conexao and conexao.is_connected():
             cursor = conexao.cursor()
 
-            conexao.database = 'ecotrack' # conectando com o banco de dados
-
+            conexao.database = 'ecotrack' 
             comando_sql = '''
             SELECT * FROM postos_de_agua
             '''
@@ -87,13 +86,13 @@ def ler_lista() -> str:
         cursor.close()
         conexao.close()
 
-def atualizar_dados(id_posto, novo_status):# somente o status se ta fucionando ou n
+def atualizar_dados(id_posto, novo_status): 
     try:
         conexao = conectar_banco()
         if conexao and conexao.is_connected():
             cursor = conexao.cursor()
 
-            conexao.database = 'ecotrack' # conectando com o banco de dados
+            conexao.database = 'ecotrack' 
             comando_sql = '''
             UPDATE postos_de_agua SET status_funcionamento = %s WHERE id = %s
             '''
@@ -112,7 +111,7 @@ def deletar_posto (id):
         if conexao and conexao.is_connected():
             cursor = conexao.cursor()
 
-            conexao.database = 'ecotrack' # conectando com o banco de dados
+            conexao.database = 'ecotrack' 
             comando_sql = '''
             DELETE FROM postos_de_agua WHERE id =%s
             '''
